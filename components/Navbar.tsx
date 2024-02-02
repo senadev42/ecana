@@ -15,16 +15,17 @@ const Navbar = () => {
           <Link href="/" className="flex items-end gap-2">
             <div className="w-[35px]">
               <Image
-                src="/assets/icons/logo.jpg"
+                src="/assets/icons/logo.png"
                 width={40}
                 height={40}
                 alt="logo"
               />
             </div>
 
-            <p className=" font-josefin text-[26px] text-secondary leading-7">
+            <p className="font-josefin text-[26px] text-secondary leading-7">
               EC<span className="text-primary">ANA</span>
             </p>
+            <p className="flex gap-2 text-xs text-gray-500 leading-7">Beta</p>
           </Link>
 
           <div className="flex items-center gap-5">

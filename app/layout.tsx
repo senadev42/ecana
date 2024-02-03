@@ -19,11 +19,9 @@ const josefin = Josefin_Sans({
   variable: "--font-josefin",
 });
 
-
-
 export const metadata: Metadata = {
   title: "ECANA | Ethiopian Commodities Exchange Price Tracking and Analytics",
-  description: "Ethiopian Commodities Exchange Price Tracking and Analytics",
+  description: "Ethiopian Commodities Exchange Price Tracking and Analytics"
 };
 
 export default function RootLayout({

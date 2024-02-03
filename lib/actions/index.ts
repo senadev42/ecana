@@ -19,25 +19,53 @@ export async function scrapeAndStoreCommodities() {
       throw new Error("Failed to scrape commodities");
     }
 
+    console.log(scrapedCommodities);
+
     //store
     console.log("Trying to save...");
-    const newdailyEntry = await DailyRecord.findOneAndUpdate(
+    await DailyRecord.findOneAndUpdate(
       {
         recordID: scrapedCommodities.recordID,
       },
       scrapedCommodities,
       { upsert: true, new: true }
     );
-
     console.log("Saved");
 
     // revalidatePath(`/commodity/${scrapedCommodities.type}`);
 
-    return scrapedCommodities;
-
-    //store
-    //const existingdailyEntry =
   } catch (error: any) {
     throw new Error(`Failed to scrape: ${error.message}`);
+  }
+}
+
+export async function getCommodityData(type: string) {
+  try {
+    //connect to mongo
+    await connectToDB();
+
+    console.log(`Fetching commodity: ${type}`);
+    //get data
+    let commodityData = await DailyRecord.find({ type }).lean().exec();
+
+    if (!commodityData) {
+      return null;
+    }
+
+    commodityData = commodityData.map((commodity) => {
+      delete commodity._id;
+      delete commodity.__v;
+      delete commodity.createdAt;
+      delete commodity.updatedAt;
+      return commodity;
+    });
+
+    // console.log(commodityData);
+
+    console.log("Done fetching")
+
+    return JSON.parse(JSON.stringify(commodityData));
+  } catch (error: any) {
+    throw new Error(`Failed to get data: ${error.message}`);
   }
 }

@@ -1,9 +1,16 @@
 "use client";
 
-import { scrapeAndStoreCommodities } from "@/lib/actions";
+import { getCommodityData, scrapeAndStoreCommodities } from "@/lib/actions";
 import { FormEvent, useEffect, useState } from "react";
 
+import { useRouter } from 'next/navigation';
+
 const Searchbar = () => {
+
+  const router = useRouter();
+
+  // option data
+  // [ ] move it out
   const dateOptions = [
     { value: "today", label: "Today" },
     { value: "yesterday", label: "Yesterday" },
@@ -14,34 +21,41 @@ const Searchbar = () => {
   ];
 
   const commodityOptions = [
-    { value: "all", label: "All" },
-    { value: "coffee", label: "Coffee" },
+    { value: "coffee", label: "Coffee" }
   ];
 
+  //tracking state
   const [isLoading, setIsLoading] = useState(false);
 
-  //tracking state
   const [fromdate, setfromdate] = useState(new Date().toISOString().split("T")[0]);
   const [todate, settodate] = useState(new Date().toISOString().split("T")[0]);
 
   const [dateOption, setDateOption] = useState("today");
-  const [commodityOption, setCommodityOption] = useState("");
+  const [commodityOption, setCommodityOption] = useState("coffee");
+
 
   // handlers
   const handleSubmit = async (event: FormEvent) => {
+   
+
     event.preventDefault();
 
     if (!fromdate || !todate) return;
 
-
+  
 
     try {
       setIsLoading(true);
 
-      let res = await scrapeAndStoreCommodities();
-      console.log(res);
+      //await scrapeAndStoreCommodities();
+      // let res = await getCommodityData("coffee");
+      // console.log(res);
 
+      console.log("Trying to route");
 
+      console.log(fromdate, todate, commodityOption);
+      router.push(`/commodities/${commodityOption}?fromdate=${fromdate}&todate=${todate}`);
+      
       
     } catch (error) {
       console.log(error);
@@ -51,6 +65,7 @@ const Searchbar = () => {
     }
   };
 
+  // date magic
   useEffect(() => {
     if (dateOption === "custom") {
       setfromdate("");

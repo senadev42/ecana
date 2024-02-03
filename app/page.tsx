@@ -29,6 +29,16 @@ const Home = () => {
           />
         </div>
       </div>
+      <div className="fixed top-0 right-0 text-center p-2  text-gray-600 text-[8px]">
+        Want to Contribute?{" "}
+        <a
+          href="https://github.com/senadev42/ecana"
+          target="_blank"
+          className="text-teal-600"
+        >
+          Join us on Github
+        </a>
+      </div>
     </section>
   );
 };

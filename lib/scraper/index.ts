@@ -23,7 +23,7 @@ export async function scrapeCommodities(url: string) {
 
     const type = "coffee";
     const date = $("#MainContent_lblCoffee").text().trim();
-    const transformedDate = new Date(date).toISOString().split("T")[0];
+    const transformedDate = new Date(date + ' UTC').toISOString().split("T")[0];
 
     //coffee
     const coffeeData: SingleEntry[] = [];
@@ -35,11 +35,11 @@ export async function scrapeCommodities(url: string) {
         warehouseCode: columns.eq(1).text().trim(),
         productionYear: columns.eq(2).text().trim(),
         prevClose: Number(columns.eq(3).text().trim()),
-        close: Number(columns.eq(4).text().trim()),
-        change: Number(columns.eq(5).text().trim()),
-        high: Number(columns.eq(6).text().trim()),
-        low: Number(columns.eq(7).text().trim()),
-        volume: Number(columns.eq(8).text().trim()),
+        close: Number(columns.eq(4).text().trim()) || 0,
+        change: Number(columns.eq(5).text().trim()) || 0,
+        high: Number(columns.eq(6).text().trim()) || 0,
+        low: Number(columns.eq(7).text().trim()) || 0,
+        volume: Number(columns.eq(8).text().trim())|| 0,
       };
 
       coffeeData.push(coffeeInfo);

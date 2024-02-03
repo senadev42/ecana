@@ -1,15 +1,15 @@
 import mongoose from "mongoose";
 
 const singleEntrySchema = new mongoose.Schema({
-  symbol: { type: String, required: true },
-  warehouseCode: { type: String, required: true },
-  productionYear: { type: String, required: true },
-  prevClose: { type: Number, required: true },
-  close: { type: Number, required: true },
-  change: { type: Number, required: true },
-  high: { type: Number, required: true },
-  low: { type: Number, required: true },
-  volume: { type: Number, required: true },
+  symbol: { type: String },
+  warehouseCode: { type: String },
+  productionYear: { type: String },
+  prevClose: { type: Number },
+  close: { type: Number },
+  change: { type: Number },
+  high: { type: Number },
+  low: { type: Number },
+  volume: { type: Number },
 });
 
 const dailyRecordSchema = new mongoose.Schema(
@@ -17,11 +17,13 @@ const dailyRecordSchema = new mongoose.Schema(
     recordID: { type: String, required: true, unique: true },
     type: { type: String, required: true },
     date: { type: String, required: true },
-    data: { type: [singleEntrySchema], required: true },
+    data: { type: [singleEntrySchema], require: true },
   },
   { timestamps: true }
 );
 
-const DailyRecord = mongoose.models.DailyRecord || mongoose.model("DailyRecord", dailyRecordSchema);
+const DailyRecord =
+  mongoose.models.DailyRecord ||
+  mongoose.model("DailyRecord", dailyRecordSchema);
 
 export default DailyRecord;

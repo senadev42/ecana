@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@tanstack/react-table": "^8.11.8",
     "axios": "^1.6.7",
     "axios-cookiejar-support": "^5.0.0",
     "cheerio": "^1.0.0-rc.12",

@@ -14,9 +14,15 @@ Storage wise going for storing time series data and transforming it on demand as
 - [ ] Specific Contract Details Page
 - [ ] Visualization
 
-## Getting Started Development
+## Contributing
 
-First, run the development server:
+### Installation
+
+1. Clone the repository.
+2. Install dependencies: `npm install`
+3. Set up MongoDB and configure connection strings. You'll need a mongo connection string (MONGO_DB_URI) inside your .env to connect to a database. 
+
+### Running the Application
 
 ```bash
 npm run dev
@@ -29,5 +35,3 @@ bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.

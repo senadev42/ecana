@@ -19,7 +19,7 @@ const Home = () => {
           <Searchbar />
         </div>
 
-        <div className="sm:mt-10 w-full flex flex-col items-center">
+        <div className="sm:mt-10 w-full md:w-fit flex flex-col items-center">
           <Image
             src="/assets/images/hero.png"
             alt="ECANA"

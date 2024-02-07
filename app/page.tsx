@@ -12,11 +12,14 @@ const Home = () => {
           </h1>
           <p className="mt-6">
             Discover the historical price movements of commodities on the
-            Ethiopian Commodities Market.
+            Ethiopian Commodities Market. Subscribe to get reports by email.
           </p>
-          <p>Subscribe to get reports by email.</p>
+    
 
           <Searchbar />
+          <p className="small-text mt-3">
+            *Market trading days.
+          </p>
         </div>
 
         <div className="sm:mt-10 w-full md:w-fit flex flex-col items-center">

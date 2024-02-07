@@ -7,15 +7,15 @@ import { useRouter } from 'next/navigation';
 
 const Searchbar = () => {
 
+  const CANON =  (new Date(new Date().getTime() - 2 * 24 * 60 * 60 * 1000)).toISOString().split('T')[0];
+
   const router = useRouter();
 
   // option data
   // [ ] move it out
   const dateOptions = [
-    { value: "today", label: "Today" },
-    { value: "yesterday", label: "Yesterday" },
-    { value: "last7days", label: "Last 7 Days" },
-    { value: "lastMonth", label: "Last Month" },
+    { value: "last7days", label: "Last 7 Days*" },
+    { value: "lastMonth", label: "Last Month*" },
     { value: "custom", label: "Custom" },
   ];
 
@@ -26,10 +26,10 @@ const Searchbar = () => {
   //tracking state
   const [isLoading, setIsLoading] = useState(false);
 
-  const [fromdate, setfromdate] = useState(new Date().toISOString().split("T")[0]);
-  const [todate, settodate] = useState(new Date().toISOString().split("T")[0]);
+  const [fromdate, setfromdate] = useState(CANON);
+  const [todate, settodate] = useState(CANON);
 
-  const [dateOption, setDateOption] = useState("today");
+  const [dateOption, setDateOption] = useState("last7days");
   const [commodityOption, setCommodityOption] = useState("coffee");
 
 
@@ -65,28 +65,19 @@ const Searchbar = () => {
     }
   };
 
-  // date magic
-  useEffect(() => {
-    if (dateOption === "custom") {
+  function handleDateDropdown(selecteddateoption: string) {
+    setDateOption(selecteddateoption);
+    
+    if (selecteddateoption === "custom") {
       setfromdate("");
       settodate("");
     } else {
       // Update fromdate and todate based on selected dateOption
-      const currentDate = new Date();
+      const currentDate = new Date(new Date().getTime() - 2 * 24 * 60 * 60 * 1000);
       let fromDate = "";
       let toDate = "";
 
-      switch (dateOption) {
-        case "today":
-          fromDate = currentDate.toISOString().split("T")[0];
-          toDate = fromDate;
-          break;
-        case "yesterday":
-          const yesterday = new Date(currentDate);
-          yesterday.setDate(currentDate.getDate() - 1);
-          fromDate = yesterday.toISOString().split("T")[0];
-          toDate = fromDate;
-          break;
+      switch (selecteddateoption) {
         case "last7days":
           const last7days = new Date(currentDate);
           last7days.setDate(currentDate.getDate() - 6);
@@ -107,25 +98,6 @@ const Searchbar = () => {
             .toISOString()
             .split("T")[0];
           break;
-        case "last6months":
-          const last6months = new Date(currentDate);
-          last6months.setMonth(currentDate.getMonth() - 6);
-          fromDate = new Date(
-            last6months.getFullYear(),
-            last6months.getMonth(),
-            1
-          )
-            .toISOString()
-            .split("T")[0];
-          toDate = new Date(
-            currentDate.getFullYear(),
-            currentDate.getMonth(),
-            0
-          )
-            .toISOString()
-            .split("T")[0];
-          break;
-        // Add cases for other predefined date options
         default:
           break;
       }
@@ -133,7 +105,9 @@ const Searchbar = () => {
       setfromdate(fromDate);
       settodate(toDate);
     }
-  }, [dateOption]);
+  }
+
+
 
   return (
     <form className="flex flex-wrap gap-6 mt-6" onSubmit={handleSubmit}>
@@ -147,6 +121,7 @@ const Searchbar = () => {
           className="searchbar-input"
           placeholder="Pick a day"
           aria-label="Search"
+          max={CANON}
         />
 
         <p className="hidden lg:flex">to</p>
@@ -155,10 +130,11 @@ const Searchbar = () => {
           type="date"
           name="to"
           value={todate}
-          onChange={(e) => settodate(e.target.value)}
+          onChange={(e) => {settodate(e.target.value); setDateOption('custom');}}
           className="searchbar-input"
           placeholder="Pick a day"
           aria-label="Search"
+          max={CANON}
         />
       </div>
 
@@ -166,7 +142,7 @@ const Searchbar = () => {
       <div className="flex flex-nowrap gap-4 items-center">
       <select
           value={dateOption}
-          onChange={(e) => setDateOption(e.target.value)}
+          onChange={(e) => handleDateDropdown(e.target.value)}
           className="  appearance-none border p-4 rounded-lg text-gray-800 leading-tight focus:outline-none focus:shadow-outline"
         >
           {dateOptions.map((option) => (

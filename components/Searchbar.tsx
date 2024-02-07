@@ -16,7 +16,6 @@ const Searchbar = () => {
     { value: "yesterday", label: "Yesterday" },
     { value: "last7days", label: "Last 7 Days" },
     { value: "lastMonth", label: "Last Month" },
-    { value: "last6months", label: "Last Six Months" },
     { value: "custom", label: "Custom" },
   ];
 
@@ -51,10 +50,11 @@ const Searchbar = () => {
       // let res = await getCommodityData("coffee");
       // console.log(res);
 
-      console.log("Trying to route");
+      // console.log("Trying to route");
+      // console.log(fromdate, todate, commodityOption);
+      //  router.push(`/commodities/${commodityOption}?fromdate=${fromdate}&todate=${todate}`);
 
-      console.log(fromdate, todate, commodityOption);
-      router.push(`/commodities/${commodityOption}?fromdate=${fromdate}&todate=${todate}`);
+       router.push(`/commodities/${commodityOption}`);
       
       
     } catch (error) {
@@ -164,6 +164,23 @@ const Searchbar = () => {
 
       {/* dropdown */}
       <div className="flex flex-nowrap gap-4 items-center">
+      <select
+          value={dateOption}
+          onChange={(e) => setDateOption(e.target.value)}
+          className="  appearance-none border p-4 rounded-lg text-gray-800 leading-tight focus:outline-none focus:shadow-outline"
+        >
+          {dateOptions.map((option) => (
+            <option
+              key={option.value}
+              value={option.value}
+              className="bg-white hover:bg-gray-200"
+            >
+              {option.label}
+            </option>
+          ))}
+        </select>
+
+
         <select
           value={commodityOption}
           onChange={(e) => setCommodityOption(e.target.value)}
@@ -180,21 +197,7 @@ const Searchbar = () => {
           ))}
         </select>
 
-        <select
-          value={dateOption}
-          onChange={(e) => setDateOption(e.target.value)}
-          className="  appearance-none border p-4 rounded-lg text-gray-800 leading-tight focus:outline-none focus:shadow-outline"
-        >
-          {dateOptions.map((option) => (
-            <option
-              key={option.value}
-              value={option.value}
-              className="bg-white hover:bg-gray-200"
-            >
-              {option.label}
-            </option>
-          ))}
-        </select>
+
 
         <button
           type="submit"

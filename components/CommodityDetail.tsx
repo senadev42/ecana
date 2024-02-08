@@ -92,16 +92,22 @@ const CommodityDetail = ({ data, id }: any) => {
           <h1 className="font-josefin text-[26px]">{id.toUpperCase()}</h1>
           <h4>Overview</h4>
         </div>
+
+        {/* [ ] this a temp solution */}
+        {cleanedcommonditydata?.length > 10 && (
+          <h3 className="text-center text-sm mt-4">
+            Tracking {cleanedcommonditydata && cleanedcommonditydata.length}{" "}
+            contracts
+          </h3>
+        )}
       </div>
-      <h3 className="text-center text-sm mt-4">
-        {cleanedcommonditydata && cleanedcommonditydata.length} contracts
-      </h3>
+
       {/* Date filter */}
-      <div>
+      {/* <div>
         <CommodityFilter />
-      </div>
+      </div> */}
       {/*Location Filters  */}
-      <div className="my-3 mt-6 flex flex-wrap justify-center gap-x-4 gap-y-2">
+      {/* <div className="my-3 mt-6 flex flex-wrap justify-center gap-x-4 gap-y-2">
         {CITIES.map((city: string) => (
           <div
             key={city}
@@ -110,9 +116,9 @@ const CommodityDetail = ({ data, id }: any) => {
             <span>{city}</span>
           </div>
         ))}
-      </div>
+      </div> */}
       {/*Wash Filters  */}
-      <div className="my-2 flex flex-wrap justify-center gap-x-4 gap-y-2">
+      {/* <div className="my-2 flex flex-wrap justify-center gap-x-4 gap-y-2">
         {WASH_TYPES.map((washtype: string) => (
           <div
             key={washtype}
@@ -121,13 +127,17 @@ const CommodityDetail = ({ data, id }: any) => {
             <span>{washtype}</span>
           </div>
         ))}
-      </div>
+      </div> */}
 
       {/* the individual cards */}
       {/* gonna filterable on card */}
       <div className="mt-10">
-        {cleanedcommonditydata?.length === 2 && (
-          <p className="text-center text-gray-400 mt-28">Loading...</p>
+        {cleanedcommonditydata?.length < 10 && (
+          <div className="flex gap-x-6 items-center justify-center mt-28">
+            <span className="animate-spin text-5xl text-gray-400 rounded-lg">
+              .
+            </span>
+          </div>
         )}
 
         {cleanedcommonditydata &&
@@ -276,7 +286,7 @@ const Subcommodity = ({ subcommodity }: any) => {
             </strong>
           </span>
           <span className="flex items-center gap-1">
-             Go to page:
+            Go to page:
             <input
               type="number"
               defaultValue={table.getState().pagination.pageIndex + 1}
@@ -293,7 +303,7 @@ const Subcommodity = ({ subcommodity }: any) => {
               table.setPageSize(Number(e.target.value));
             }}
           >
-            {[10, 20, 30].map((pageSize) => (
+            {[5, 10, 20].map((pageSize) => (
               <option key={pageSize} value={pageSize}>
                 Show {pageSize}
               </option>

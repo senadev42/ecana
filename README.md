@@ -1,5 +1,11 @@
 ## ECANA | Ethiopian Commodity Price Tracking and Analytics
 
+<em>
+February 21, 2024: There's market speculation that the ECX might be shedding its grain and beans portfolio and might only be trading coffee and tea from now. Site is still operational but is seeing occasional downtime which might start translating to missing entries in the dataset or a potential approach rework from my side alltoghether.
+</em>
+
+<br></br>
+
 Scrapes data from ecx website using cheerio (and the axios cookie jar because they have some wierdness going on there with that), saves it to mongodb, and renders it on a React/Next.js frontend.
 
 Initial implementation for this site was created using data from the nbe markets site (because ECX site wasn't stable back then) and as such was sort of limited. This gets data directly from there and as such has much more detail. Currently focused on Coffee only while I get it stable. But even then there's dozens of coffee contracts. 

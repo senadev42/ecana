@@ -91,6 +91,10 @@ const CommodityDetail = ({ data, id }: any) => {
         <div>
           <h1 className="font-josefin text-[26px]">{id.toUpperCase()}</h1>
           <h4>Overview</h4>
+          <p className="mt-6 text-slate-600 text-xs">
+            {id == 'coffee' && 'Prices are in Birr/ Feresulla | 1 Feresulla= 17Kg'}
+            {id == 'sesame' && 'Price Birr / Quintal | 1 Quintal = 100 Kg.'}
+            </p>
         </div>
 
         {/* [ ] this a temp solution */}
